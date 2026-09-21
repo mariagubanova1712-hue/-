@@ -17,7 +17,10 @@ grep '.*' /etc/passwd | cut -d: -f1 | sort
 139 hip
 138 manet
 ```
+
+```
 grep -v '^#' /etc/protocols | awk 'NF {print $2, $1}' | sort -rn | head -5
+```
 
 ## Задача 3
 
@@ -31,6 +34,10 @@ grep -v '^#' /etc/protocols | awk 'NF {print $2, $1}' | sort -rn | head -5
 ```
 
 ```
+nano banner
+```
+
+```
 Текст скрипта banner:
 #!/bin/bash
 text="$1"
@@ -39,8 +46,11 @@ line=$(printf '%*s' $((len + 2)) '' | tr ' ' '-')
 echo "+$line+"
 echo "| $text |"
 echo "+$line+"
+```
 
-./banner 'Hello from RTU MIREA!'
+```
+chmod +x banner
+./banner "Hello from RTU MIREA!"
 ```
 
 ## Задача 4
@@ -55,14 +65,22 @@ h hello include int main n printf return stdio void world
 
 ```
 nano ids
+```
 
+```
 #!/bin/bash
 grep -oE '[A-Za-z_][A-Za-z0-9_]*' "$1" | sort -u | paste -sd' '
+```
 
+```
 chmod +x ids
+```
 
+```
 nano hello.c
+```
 
+```
 ./ids hello.c
 ```
 
@@ -78,7 +96,9 @@ nano hello.c
 
 ```
 nano reg
+```
 
+```
 #!/bin/bash
 if [ ! -f "$1" ]; then
     echo "Файл $1 не найден"
@@ -86,11 +106,14 @@ if [ ! -f "$1" ]; then
 fi
 chmod 755 "$1"
 cp "$1" /usr/local/bin/
+```
 
+```
 chmod +x reg
-
 sudo ./reg banner
+```
 
+```
 ls -l /usr/local/bin/banner
 ```
 
@@ -106,9 +129,13 @@ echo 'int x;' > b.c
 echo '# comment' > c.py
 echo 'print(1)' > d.py
 echo '// hi' > e.js
+```
 
+```
 nano check_comment
+```
 
+```
 #!/bin/bash
 dir="${1:-.}"
 find "$dir" -type f \( -name '*.c' -o -name '*.js' -o -name '*.py' \) | while IFS= read -r f; do
@@ -123,7 +150,9 @@ find "$dir" -type f \( -name '*.c' -o -name '*.js' -o -name '*.py' \) | while IF
         echo "$f: комментария нет"
     fi
 done
+```
 
+```
 chmod +x check_comment
 ./check_comment .
 ```
@@ -138,13 +167,19 @@ echo 'hello' > b.txt
 echo 'world' > c.txt
 mkdir sub
 echo 'hello' > sub/d.txt
+```
 
+```
 nano dups
+```
 
+```
 #!/bin/bash
 dir="${1:-.}"
 find "$dir" -type f -exec md5sum {} + | sort | uniq -w32 --all-repeated=separate
+```
 
+```
 chmod +x dups
 ./dups .
 ```
@@ -159,9 +194,13 @@ echo 'one' > test8/a.txt
 echo 'two' > test8/b.txt
 echo 'three' > test8/c.txt
 echo 'int x;' > test8/d.c
+```
 
+```
 nano arch
+```
 
+```
 chmod +x arch
 ./arch txt test8
 ```
@@ -172,15 +211,23 @@ chmod +x arch
 
 ```
 printf 'a    b\n        c\nno spaces\n' > input.txt
+```
 
+```
 nano spaces2tab
+```
 
+```
 #!/bin/bash
 sed 's/ \{4\}/\t/g' "$1" > "$2"
+```
 
+```
 chmod +x spaces2tab
 ./spaces2tab input.txt output.txt
+```
 
+```
 cat -A output.txt
 ```
 
@@ -193,12 +240,15 @@ mkdir test10
 touch test10/empty1.txt
 touch test10/empty2.txt
 echo 'text' > test10/full.txt
-
+```
+```
 nano empty_files
-
+```
+```
 #!/bin/bash
 find "$1" -maxdepth 1 -type f -empty
-
+```
+```
 chmod +x empty_files
 ./empty_files test10
 ```
